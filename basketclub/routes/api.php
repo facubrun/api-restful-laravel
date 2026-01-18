@@ -1,8 +1,7 @@
 <?php
 
+use App\Http\Controllers\PlayerController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/players', function (Request $request) {
-    return 'Lista de jugadores';
-});
+Route::get('/players', [PlayerController::class, 'index']);
