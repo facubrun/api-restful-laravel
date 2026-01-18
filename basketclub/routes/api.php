@@ -14,6 +14,8 @@ Route::get('/players', [PlayerController::class, 'index']);
 Route::get('/players/{id}', [PlayerController::class, 'show']);
 // alta de nuevo player
 Route::post('/players', [PlayerController::class, 'store']);
+// actualizacion de player existente
+Route::put('/players/{id}', [PlayerController::class, 'update']);
 });
 
 // listado de teams    
