@@ -16,6 +16,8 @@ Route::get('/players/{id}', [PlayerController::class, 'show']);
 Route::post('/players', [PlayerController::class, 'store']);
 // actualizacion de player existente
 Route::put('/players/{id}', [PlayerController::class, 'update']);
+// eliminar player existente
+Route::delete('/players/{id}', [PlayerController::class, 'destroy']);
 });
 
 // listado de teams    
