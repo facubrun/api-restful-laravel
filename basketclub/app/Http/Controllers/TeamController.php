@@ -154,4 +154,17 @@ class TeamController extends Controller
             return response()->json(['message' => 'Team not found'], 404);
         }
     }
+
+    /**
+     * Get players by team id.
+     */
+    public function show_players(int $id) 
+    {
+        $team = Team::find($id);
+        if($team) {
+            return response()->json($team->players, 200);
+        } else {
+            return response()->json(['message' => 'Team not found'], 404);
+        }
+    }
 }
