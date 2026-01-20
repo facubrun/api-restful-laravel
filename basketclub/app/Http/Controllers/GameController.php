@@ -29,4 +29,17 @@ class GameController extends Controller
             return response()->json(['message' => 'Game not found'], 404);
         }
     }
+
+    /**
+     * Show a team by game id.
+     */
+    public function show_team(int $id) 
+    {
+        $game = Game::find($id);
+        if($game) {
+            return response()->json($game->team, 200);
+        } else {
+            return response()->json(['message' => 'Game not found'], 404);
+        }
+    }
 }

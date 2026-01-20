@@ -29,4 +29,17 @@ class MedicalRecordController extends Controller
             return response()->json(['message' => 'Medical record not found'], 404);
         }
     }
+
+    /**
+     * Show a player medical record by id.
+     */
+    public function show_player(int $id) 
+    {
+        $medicalRecord = MedicalRecord::find($id);
+        if($medicalRecord) {
+            return response()->json($medicalRecord->player, 200);
+        } else {
+            return response()->json(['message' => 'Medical record not found'], 404);
+        }
+    }
 }

@@ -44,6 +44,8 @@ Route::middleware([ApiForceAcceptHeader::class])->group(function () {
 Route::get('/games', [GameController::class, 'index']);
 // busqueda de game por id
 Route::get('/games/{id}', [GameController::class, 'show']);
+// busqueda de equipo por game id
+Route::get('games/{id}/team', [GameController::class, 'show_team']);
 });
 
 Route::middleware([ApiForceAcceptHeader::class])->group(function () {
@@ -51,4 +53,6 @@ Route::middleware([ApiForceAcceptHeader::class])->group(function () {
 Route::get('/medical-records', [MedicalRecordController::class, 'index']);
 // busqueda de medical record por id
 Route::get('/medical-records/{id}', [MedicalRecordController::class, 'show']);
+// busqueda de player por medical record id
+Route::get('medical-records/{id}/player', [MedicalRecordController::class, 'show_player']);
 });
