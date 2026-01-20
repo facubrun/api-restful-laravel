@@ -20,6 +20,15 @@ Route::put('/players/{id}', [PlayerController::class, 'update']);
 Route::delete('/players/{id}', [PlayerController::class, 'destroy']);
 });
 
-// listado de teams    
-Route::get('/teams', [TeamController::class, 'index'])
-    ->middleware([ApiForceAcceptHeader::class]);
+Route::middleware([ApiForceAcceptHeader::class])->group(function () {
+// listado de teams
+Route::get('/teams', [TeamController::class, 'index']);
+// busqueda de team por id
+Route::get('/teams/{id}', [TeamController::class, 'show']);
+// alta de nuevo team
+Route::post('/teams', [TeamController::class, 'store']);
+// actualizacion de team existente
+Route::put('/teams/{id}', [TeamController::class, 'update']);
+// eliminar team existente
+Route::delete('/teams/{id}', [TeamController::class, 'destroy']);
+});

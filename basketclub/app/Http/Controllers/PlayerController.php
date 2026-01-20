@@ -110,7 +110,7 @@ class PlayerController extends Controller
         if($player) {
             // eliminar player de la bd
             $player->delete();
-            return response()->json(['message' => 'Player deleted successfully'], 200);
+            return response()->json(['message' => 'Player with id ' . $id . ' deleted successfully'], 200);
         } else {
             return response()->json(['message' => 'Player not found'], 404);
         }

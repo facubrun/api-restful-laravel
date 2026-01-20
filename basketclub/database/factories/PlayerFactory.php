@@ -14,7 +14,7 @@ class PlayerFactory extends Factory
      *
      * @var array
      */
-    protected array $gender = ['male', 'female', 'other'];
+    protected array $gender = ['Male', 'Female', 'Other'];
     
         /**
      * Define the model's default state.
