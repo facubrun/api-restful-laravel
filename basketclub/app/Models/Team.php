@@ -12,4 +12,8 @@ class Team extends Model
     public function games() {
         return $this->hasMany(Game::class);
     }
+
+    public function latestGame() {
+        return $this->hasOne(Game::class)->latestOfMany();
+    }
 }
