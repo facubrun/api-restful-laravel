@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\MedicalRecordController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\TeamController;
 use App\Http\Middleware\ApiForceAcceptHeader;
@@ -33,4 +35,18 @@ Route::post('/teams', [TeamController::class, 'store']);
 Route::put('/teams/{id}', [TeamController::class, 'update']);
 // eliminar team existente
 Route::delete('/teams/{id}', [TeamController::class, 'destroy']);
+});
+
+Route::middleware([ApiForceAcceptHeader::class])->group(function () {
+// listado de games
+Route::get('/games', [GameController::class, 'index']);
+// busqueda de game por id
+Route::get('/games/{id}', [GameController::class, 'show']);
+});
+
+Route::middleware([ApiForceAcceptHeader::class])->group(function () {
+// listado de medical records
+Route::get('/medical-records', [MedicalRecordController::class, 'index']);
+// busqueda de medical record por id
+Route::get('/medical-records/{id}', [MedicalRecordController::class, 'show']);
 });
