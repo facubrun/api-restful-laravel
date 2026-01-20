@@ -29,6 +29,8 @@ Route::middleware([ApiForceAcceptHeader::class])->group(function () {
 Route::get('/teams', [TeamController::class, 'index']);
 // busqueda de team por id
 Route::get('/teams/{id}', [TeamController::class, 'show']);
+// busqueda de games por team id
+Route::get('teams/{id}/games', [TeamController::class, 'show_games']);
 // alta de nuevo team
 Route::post('/teams', [TeamController::class, 'store']);
 // actualizacion de team existente
