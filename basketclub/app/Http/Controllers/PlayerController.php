@@ -32,6 +32,19 @@ class PlayerController extends Controller
     }
 
     /**
+     * Show medical record of a player by player id.
+     */
+    public function show_medical_record(int $id) 
+    {
+        $player = Player::find($id);
+        if($player) {
+            return response()->json($player->medicalRecord, 200);
+        } else {
+            return response()->json(['message' => 'Player not found'], 404);
+        }
+    }
+
+    /**
      * Store a new player in the database.
      */
     public function store(Request $request)

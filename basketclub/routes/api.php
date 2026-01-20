@@ -12,6 +12,8 @@ Route::middleware([ApiForceAcceptHeader::class])->group(function () {
 Route::get('/players', [PlayerController::class, 'index']);
 // busqueda de player por id
 Route::get('/players/{id}', [PlayerController::class, 'show']);
+// busqueda de medical record por player id
+Route::get('players/{id}/medical-record', [PlayerController::class, 'show_medical_record']);
 // alta de nuevo player
 Route::post('/players', [PlayerController::class, 'store']);
 // actualizacion de player existente
