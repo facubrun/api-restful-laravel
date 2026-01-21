@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('last_name', 128);
             $table->enum('gender', ['Female', 'Male', 'Other']);
             $table->date('date_birth');
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

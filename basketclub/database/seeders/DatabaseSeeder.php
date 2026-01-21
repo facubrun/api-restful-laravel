@@ -22,10 +22,13 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        $this->call(PlayerSeeder::class);
-        $this->call(TeamSeeder::class);
-        $this->call(MedicalRecordSeeder::class);
-        $this->call(GameSeeder::class);
-        $this->call(TeamPlayerSeeder::class);
+        $this->call([
+            UserSeeder::class,
+            PlayerSeeder::class,
+            TeamSeeder::class,
+            MedicalRecordSeeder::class,
+            GameSeeder::class,
+            TeamPlayerSeeder::class,
+        ]);
     }
 }

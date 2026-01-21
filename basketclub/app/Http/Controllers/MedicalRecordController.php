@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MedicalRecord;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MedicalRecordController extends Controller
@@ -38,6 +39,19 @@ class MedicalRecordController extends Controller
         $medicalRecord = MedicalRecord::find($id);
         if($medicalRecord) {
             return response()->json($medicalRecord->player, 200);
+        } else {
+            return response()->json(['message' => 'Medical record not found'], 404);
+        }
+    }
+
+        /**
+     * Show user medical record by user id.
+     */
+    public function show_user_medical_record(int $id) 
+    {
+        $user = User::with(['medicalRecord', 'player'])->find($id); // incluimos ambos modelos para la respuesta
+        if($user && $user->medicalRecord) {
+            return response()->json($user, 200);
         } else {
             return response()->json(['message' => 'Medical record not found'], 404);
         }

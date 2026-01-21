@@ -45,4 +45,24 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function definition(): array {
+        return [
+            'name' => fake()->name(),
+            'email' => fake()->unique()->safeEmail(),
+            'email_verified_at' => now(),
+            'password' => bcrypt('password'), // password
+            'remember_token' => fake()->regexify('[A-Za-z0-9]{10}'),
+        ];
+    }
+
+    public function player()
+    {
+        return $this->hasOne(Player::class);
+    }
+    
+    public function medicalRecord()
+    {
+        return $this->hasOneThrough(MedicalRecord::class, Player::class);
+    }
 }

@@ -5,13 +5,14 @@ use App\Http\Controllers\MedicalRecordController;
 use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\TeamController;
 use App\Http\Middleware\ApiForceAcceptHeader;
-use App\Models\Player;
-use App\Models\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
 Route::middleware([ApiForceAcceptHeader::class])->group(function () {
+
+    //user routes
+    Route::get('/users/{id}/medical-record', [MedicalRecordController::class, 'show_user_medical_record']);
 
     // players routes
     Route::get('/players', [PlayerController::class, 'index']);
@@ -43,4 +44,6 @@ Route::middleware([ApiForceAcceptHeader::class])->group(function () {
     // teams with games route
     Route::get('/teams-with-games/{id?}', [TeamController::class, 'show_teams_with_games']);
     Route::get('/teams/{id}/last-game', [TeamController::class, 'show_last_game']);
+
+
 });
