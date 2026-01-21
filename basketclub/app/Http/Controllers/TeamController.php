@@ -13,7 +13,7 @@ class TeamController extends Controller
      */
     public function index()
     {
-        $teams = Team::all();
+        $teams = Team::with('image')->get();
         return response()->json($teams, 200);
     }
 
@@ -22,7 +22,7 @@ class TeamController extends Controller
      */
     public function show(int $id) 
     {
-        $team = Team::find($id);
+        $team = Team::with('image')->find($id);
         if($team) {
             return response()->json($team, 200);
         } else {
@@ -35,7 +35,7 @@ class TeamController extends Controller
      */
     public function show_games(int $id) 
     {
-        $team = Team::find($id);
+        $team = Team::with('games')->find($id);
         if($team) {
             return response()->json($team->games, 200);
         } else {

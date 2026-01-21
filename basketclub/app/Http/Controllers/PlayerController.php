@@ -14,7 +14,7 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        $players = Player::all();
+        $players = Player::with('image')->get();
         return response()->json($players, 200);
     }
 
@@ -23,7 +23,7 @@ class PlayerController extends Controller
      */
     public function show(int $id) 
     {
-        $player = Player::find($id);
+        $player = Player::with('image')->find($id);
         if($player) {
             return response()->json($player, 200);
         } else {
@@ -36,7 +36,7 @@ class PlayerController extends Controller
      */
     public function show_medical_record(int $id) 
     {
-        $player = Player::find($id);
+        $player = Player::with('medicalRecord')->find($id);
         if($player) {
             return response()->json($player->medicalRecord, 200);
         } else {
