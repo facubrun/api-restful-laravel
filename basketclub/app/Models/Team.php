@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -25,5 +26,10 @@ class Team extends Model
 
         public function image(): MorphOne {
         return $this->morphOne(Image::class, 'imageable');
+    }
+
+        protected function serializeDate(DateTimeInterface $date): string
+    {
+        return $date->format('Y-m-d');
     }
 }
