@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Player;
 use App\Models\Team;
 use Illuminate\Http\Request;
 
@@ -68,6 +69,25 @@ class TeamController extends Controller
         ];
 
         return response()->json($data, 201);
+    }
+
+    public function store_player(int $id, int $player_id) {
+
+        // buscamos team por id
+        $team = Team::find($id);
+        if(!$team) {
+            return response()->json(['message' => 'Team not found'], 404);
+        }
+
+        // insertamos el player
+        $player = Player::find($player_id);
+        if(!$player) {
+            return response()->json(['message' => 'Player not found'], 404);
+        }
+
+        $team->players()->syncWithoutDetaching($player_id); // añade solo si no existe el player en el team
+        $teamPlayers = Team::with('players')->find($id);
+        return response()->json($teamPlayers->players, 200);
     }
 
     /**

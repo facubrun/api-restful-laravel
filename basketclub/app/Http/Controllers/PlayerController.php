@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\MedicalRecord;
 use App\Models\Player;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Psy\Util\Str;
 
 class PlayerController extends Controller
 {
@@ -127,5 +129,35 @@ class PlayerController extends Controller
         } else {
             return response()->json(['message' => 'Player not found'], 404);
         }
+    }
+
+    public function store_player_medical_record(Request $request, int $id)
+    {
+        $validated = $request->validate([
+            'medical_public_id' => 'required|string|unique:medical_records,medical_public_id',
+            'blood_type' => 'required|in:A,B,AB,O',
+            'allergies' => 'nullable|string|max:255',
+            'injuries' => 'required|string|max:512',
+        ]);
+
+        $player = Player::find($id);
+
+        if (!$player) {
+            return response()->json(['message' => 'Player not found'], 404);
+        } else {
+            // buscar si el player ya tiene un medical record
+            $medicalRecord = $player->medicalRecord;
+            if ($medicalRecord) {
+                return response()->json(['message' => 'Medical record already exists for this player'], 400);
+            }
+        }
+        $medicalRecord = new MedicalRecord();
+        $medicalRecord->fill($validated);
+        // insertamos el medical record para el player
+        $player->medicalRecord()->save($medicalRecord);
+        $player->refresh();
+
+        // devolvemos el medical record
+        return response()->json($player->medicalRecord, 201);
     }
 }

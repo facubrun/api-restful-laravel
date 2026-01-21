@@ -56,4 +56,18 @@ class MedicalRecordController extends Controller
             return response()->json(['message' => 'Medical record not found'], 404);
         }
     }
+
+    /**
+     * Delete a medical record from the database.
+     */
+    public function destroy(int $id) {
+        $medicalRecord = MedicalRecord::find($id);
+        if($medicalRecord) {
+            // eliminar medical record de la bd
+            $medicalRecord->delete();
+            return response()->json(['message' => 'Medical record with id ' . $id . ' deleted successfully'], 200);
+        } else {
+            return response()->json(['message' => 'Medical record not found'], 404);
+        }
+    }
 }
