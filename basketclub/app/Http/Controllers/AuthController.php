@@ -18,6 +18,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
+            'role' => 'player',
         ]);
 
         if ($validator->fails()) {
@@ -29,10 +30,11 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => $request->role,
         ]);
 
         // Crear token de autenticación
-        $token = $user->createToken('BasketClub Client')->accessToken;
+        $token = $user->createToken('BasketClub Client', ['user:read'])->accessToken;
 
         return response()->json([
             'message' => 'User registered successfully',
@@ -56,9 +58,13 @@ class AuthController extends Controller
 
         // Obtener el usuario autenticado
         $user = Auth::user();
-        
+
         // Crear token de autenticación
-        $token = $user->createToken('BasketClub Client')->accessToken;
+        if ($user->role == 'admin') {
+            $token = $user->createToken('BasketClub Client', ['user:all'])->accessToken;
+        } else {
+            $token = $user->createToken('BasketClub Client', ['user:read'])->accessToken;
+        }
 
         return response()->json([
             'message' => 'User logged in successfully',
