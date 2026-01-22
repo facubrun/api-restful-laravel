@@ -42,4 +42,29 @@ class GameController extends Controller
             return response()->json(['message' => 'Game not found'], 404);
         }
     }
+
+    /**
+     * Store a new game in the database.
+     */
+    public function store(Request $request) {
+        $validated = $request->validate([
+            'is_home' => 'required|boolean',
+            'game_date' => 'required',
+            'pts_team' => 'required|integer|min:0',
+            'pts_opponent' => 'required|integer|min:0',
+            'team_id' => 'required|exists:teams,id',
+            'opponent_name' => 'required|string|max:128'
+        ]);
+
+        $game = new Game();
+        $game->fill($validated);
+        $game->save();
+        
+        $data = [
+            'message' => 'Game created successfully',
+            'game' => $game  
+        ];
+        
+        return response()->json($data, 201);
+    }
 }
