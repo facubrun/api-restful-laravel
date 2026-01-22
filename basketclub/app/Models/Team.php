@@ -24,6 +24,12 @@ class Team extends Model
         return $this->belongsToMany(Player::class, 'team_player');
     }
 
+    public function coachers(): BelongsToMany {
+        return $this->belongsToMany(Coacher::class, 'coacher_team')
+            ->withPivot('start_date', 'end_date')
+            ->withTimestamps();
+    }
+
         public function image(): MorphOne {
         return $this->morphOne(Image::class, 'imageable');
     }

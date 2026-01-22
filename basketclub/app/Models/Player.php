@@ -42,4 +42,9 @@ class Player extends Model
             'birth_date' => 'date:Y-m-d',
         ];
     }
+
+    public function statistics()
+    {
+        return $this->hasOne(Statistics::class);
+    }
 }

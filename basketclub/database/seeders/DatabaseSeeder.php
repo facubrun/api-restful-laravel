@@ -30,6 +30,8 @@ class DatabaseSeeder extends Seeder
             GameSeeder::class,
             TeamPlayerSeeder::class,
             ImageSeeder::class,
+            StatisticsSeeder::class,
+            CoachersSeeder::class,
         ]);
     }
 }

@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\CoachersController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\MedicalRecordController;
 use App\Http\Controllers\PlayerController;
+use App\Http\Controllers\StatisticsController;
 use App\Http\Controllers\TeamController;
 use App\Http\Middleware\ApiForceAcceptHeader;
 use Illuminate\Http\Request;
@@ -51,5 +53,21 @@ Route::middleware([ApiForceAcceptHeader::class])->group(function () {
     Route::get('/teams-with-games/{id?}', [TeamController::class, 'show_teams_with_games']);
     Route::get('/teams/{id}/last-game', [TeamController::class, 'show_last_game']);
 
+
+    // statistics routes
+    Route::get('/statistics', [StatisticsController::class, 'index']);
+    Route::post('/statistics', [StatisticsController::class, 'store']);
+    Route::put('/statistics/{id}', [StatisticsController::class, 'update']);
+    Route::delete('/statistics/{id}', [StatisticsController::class, 'destroy']);
+
+    // coachers routes
+    Route::get('/coachers', [CoachersController::class, 'index']);
+    Route::get('/coachers/{id}', [CoachersController::class, 'show']);
+    Route::post('/coachers', [CoachersController::class, 'store']);
+    Route::put('/coachers/{id}', [CoachersController::class, 'update']);
+    Route::delete('/coachers/{id}', [CoachersController::class, 'destroy']);
+    Route::get('/coachers/{id}/teams', [CoachersController::class, 'show_teams']);
+    Route::post('/coachers/{coacher_id}/teams/{team_id}', [CoachersController::class, 'attach_team']);
+    Route::delete('/coachers/{coacher_id}/teams/{team_id}', [CoachersController::class, 'detach_team']);
 
 });
