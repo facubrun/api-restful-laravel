@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CoachersController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\MedicalRecordController;
@@ -10,8 +11,13 @@ use App\Http\Middleware\ApiForceAcceptHeader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-
 Route::middleware([ApiForceAcceptHeader::class])->group(function () {
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login', [AuthController::class, 'login']);
+});
+
+Route::middleware([ApiForceAcceptHeader::class, 'auth:api'])->group(function () {
+
 
     //user routes
     Route::get('/users/{id}/medical-record', [MedicalRecordController::class, 'show_user_medical_record']);
