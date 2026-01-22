@@ -123,8 +123,13 @@ class PlayerController extends Controller
     {
         $player = Player::find($id);
         if($player) {
-            // eliminar player de la bd
+            // eliminar medical record asociado al player
+            $player->medicalRecord()->delete();
+            //desvincular teams de la tabla pivot
+            $player->teams()->detach();
+            // eliminar el player
             $player->delete();
+
             return response()->json(['message' => 'Player with id ' . $id . ' deleted successfully'], 200);
         } else {
             return response()->json(['message' => 'Player not found'], 404);
